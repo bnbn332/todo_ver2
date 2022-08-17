@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from "styled-components"; /*글로벌 스타일 추가*/
+import ToDoTemplate from "./Components/ToDoTemplate";
+import ToDoHead from "./Components/ToDoHead";
+import ToDoList from "./Components/ToDoList";
+import ToDoCreate from "./Components/ToDoCreate";
+
+const GlobalStyle = createGlobalStyle`
+  body{
+    background: #e9ecef;
+  }
+  `;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyle />
+      <ToDoTemplate>
+        <ToDoHead />
+        <ToDoList />
+        <ToDoCreate />
+      </ToDoTemplate>
     </div>
   );
 }
