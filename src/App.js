@@ -3,6 +3,7 @@ import ToDoTemplate from "./Components/ToDoTemplate";
 import ToDoHead from "./Components/ToDoHead";
 import ToDoList from "./Components/ToDoList";
 import ToDoCreate from "./Components/ToDoCreate";
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -11,6 +12,12 @@ const GlobalStyle = createGlobalStyle`
   `;
 
 function App() {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "Todo-List ver.2",
+    },
+  ]);
   return (
     <div>
       <GlobalStyle />
