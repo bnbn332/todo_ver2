@@ -3,23 +3,18 @@ import React, { createContext, useContext, useReducer, useRef } from "react";
 const initalTodos = [
   {
     id: 1,
-    text: "프로젝트 생성",
-    done: true,
+    text: "ToDo List ver.2",
+    done: false,
   },
   {
     id: 2,
-    text: "컴포넌트 스타일링 하기",
-    done: true,
+    text: "React",
+    done: false,
   },
   {
     id: 3,
-    text: "Context 만들기",
-    done: false,
-  },
-  {
-    id: 4,
-    text: "기능 구현하기",
-    done: false,
+    text: "복습하기",
+    done: true,
   },
 ];
 
