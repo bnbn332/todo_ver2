@@ -1,8 +1,10 @@
 // 할 일 항목들을 담는 컴포넌트
-
+import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
 /* react-icons에서 완료,삭제 아이콘 사용 */
+import { useToDoDispatch } from "../ToDoContext";
+/* dispatch를 통해 토글 기능과 삭제 기능 구현 */
 
 const Remove = styled.div`
   display: flex;
@@ -60,15 +62,21 @@ const Text = styled.div`
 `;
 
 function ToDoItemList({ id, done, text }) {
+  const dispatch = useToDoDispatch();
+  const onToggle = () => dispatch({ type: "TOGGLE", id });
+  const onRemove = () => dispatch({ type: "REMOVE", id });
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle done={done} onClick={onToggle}>
+        {done && <MdDone />}
+      </CheckCircle>
       <Text done={done}>{text}</Text>
-      <Remove>
+      <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>
     </TodoItemBlock>
   );
 }
 
-export default ToDoItemList;
+export default React.memo(ToDoItemList);
+/* React.memo로 리렌더링 방지 성능 최적화 */

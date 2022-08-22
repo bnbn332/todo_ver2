@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import ToDoItemList from "./ToDoItemList";
+import { useToDoState } from "../ToDoContext";
 
 const ToDoListBlock = styled.div`
   flex: 1;
@@ -12,10 +13,18 @@ const ToDoListBlock = styled.div`
 `;
 
 function ToDoList() {
+  const todos = useToDoState();
+
   return (
     <ToDoListBlock>
-      <ToDoItemList text="Todo-List ver.2" done={false} />
-      <ToDoItemList text="리액트" done={true} />
+      {todos.map((todo) => (
+        <ToDoItemList
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          done={todo.done}
+        />
+      ))}
     </ToDoListBlock>
   );
 }

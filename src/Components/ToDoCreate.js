@@ -1,8 +1,8 @@
 // 새로운 할 일을 등록하는 컴포넌트
-
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
-import { useState } from "react";
+import { useToDoDispatch, useToDoNextId } from "../ToDoContext";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -78,17 +78,39 @@ const Input = styled.input`
 `;
 
 function ToDoCreate() {
-  const [open, setOpen] = useState();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+
+  const dispatch = useToDoDispatch();
+  const nextId = useToDoNextId();
+
   const onToggle = () => setOpen(!open);
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault(); // 새로고침 방지
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue("");
+    setOpen(false);
+    nextId.current += 1;
+  };
 
   return (
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm>
+          <InsertForm onSubmit={onSubmit}>
             <Input
               autoFocus
               placeholder="할 일을 입력 후 , Enter 를 누르세요"
+              onChange={onChange}
+              value={value}
             />
           </InsertForm>
         </InsertFormPositioner>
@@ -101,4 +123,4 @@ function ToDoCreate() {
 }
 /* open이 true이면 InsertFormPositioner가 false이면 CircleButton이 보여진다 */
 
-export default ToDoCreate;
+export default React.memo(ToDoCreate);
