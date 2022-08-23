@@ -92,7 +92,7 @@ function ToDoItemList({ id, done, text }) {
         {done && <MdDone />}
       </CheckCircle>
       <Text done={done}>{text}</Text>
-      {edit && <ToDoEdit />}
+      {edit && <ToDoEdit onClick={onClick} />}
       <Edit onClick={onClick} edit={edit}>
         <MdModeEditOutline />
       </Edit>

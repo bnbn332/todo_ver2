@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useToDoDispatch, useToDoNextId } from "../ToDoContext";
 
@@ -41,17 +41,32 @@ const Button = styled.button`
   margin: auto;
 `;
 
-function ToDoEdit() {
+function ToDoEdit({ onClick }) {
   const [open, setOpen] = useState(true);
   const [value, setValue] = useState("");
 
-  const onClick = () => setOpen(!open);
+  const dispatch = useToDoDispatch();
+  const nextId = useToDoNextId();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: "UPDATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue("");
+    setOpen(false);
+  };
   const onChange = (e) => setValue(e.target.value);
 
   return (
     <>
       {open && (
-        <EditFormPositioner>
+        <EditFormPositioner onSubmit={onSubmit}>
           <EditForm>
             <Edit
               autoFocus
